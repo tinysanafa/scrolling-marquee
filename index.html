@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動式直播控制台</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 主控台容器 -->
+    <div class="dashboard-container">
+        
+        <!-- 頂部資訊列 -->
+        <header class="top-bar">
+            <!-- 6️⃣ 左上角「活動標題動畫」 -->
+            <div class="title-section">
+                <h1 id="animated-title" class="gradient-text">等待設定活動標題...</h1>
+                <div class="title-settings hover-reveal">
+                    <input type="text" id="title-input" placeholder="輸入課程/活動名稱" value="互動式直播系統">
+                    <button id="set-title-btn" class="btn primary-btn"><i class="fas fa-check"></i> 設定</button>
+                </div>
+            </div>
+            
+            <!-- 7️⃣ 主持人資訊（社群連結） -->
+            <div class="social-links">
+                <a href="#" target="_blank" class="social-icon fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" class="social-icon yt" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" target="_blank" class="social-icon ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </header>
+
+        <!-- 1️⃣ 跑馬燈顯示區 -->
+        <div class="marquee-display-container">
+            <div id="marquee-box" class="marquee-box">
+                <div id="marquee-text" class="marquee-content">歡迎來到本直播頻道！這裡是跑馬燈預設文字。</div>
+            </div>
+        </div>
+
+        <!-- 主要控制面板與顯示區 -->
+        <main class="main-content">
+            
+            <!-- 左側設定面版 -->
+            <aside class="control-panel glass-panel">
+                <h2 class="panel-title"><i class="fas fa-sliders-h"></i> 控制中心</h2>
+                
+                <!-- 1️⃣ 跑馬燈設定 -->
+                <section class="control-section">
+                    <h3>📢 跑馬燈設定</h3>
+                    <div class="input-group">
+                        <label>內容 (支援 Emoji 🚀)</label>
+                        <input type="text" id="mq-text-input" placeholder="輸入跑馬燈文字...">
+                    </div>
+                    <div class="color-speed-group">
+                        <div class="input-group">
+                            <label>文字色</label>
+                            <input type="color" id="mq-color-input" value="#ffffff">
+                        </div>
+                        <div class="input-group">
+                            <label>背景色</label>
+                            <input type="color" id="mq-bg-input" value="#ff4757">
+                        </div>
+                        <div class="input-group">
+                            <label>速度</label>
+                            <input type="range" id="mq-speed-input" min="5" max="30" value="15">
+                        </div>
+                    </div>
+                    <button id="apply-mq-btn" class="btn primary-btn w-100">更新跑馬燈</button>
+                </section>
+
+                <!-- 2️⃣ 倒數計時器設定 -->
+                <section class="control-section">
+                    <h3>⏱️ 倒數計時器</h3>
+                    <div class="timer-inputs">
+                        <div class="input-group">
+                            <label>分鐘</label>
+                            <input type="number" id="timer-min" min="0" max="99" value="5">
+                        </div>
+                        <div class="input-group">
+                            <label>秒數</label>
+                            <input type="number" id="timer-sec" min="0" max="59" value="0">
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button id="start-timer-btn" class="btn action-btn"><i class="fas fa-play"></i> 開始</button>
+                        <button id="reset-timer-btn" class="btn danger-btn"><i class="fas fa-redo"></i> 重設</button>
+                    </div>
+                </section>
+
+                <!-- 3️⃣ YouTube 影片設定 -->
+                <section class="control-section">
+                    <h3>📺 影片播放</h3>
+                    <div class="input-group">
+                        <label>YouTube 網址</label>
+                        <input type="text" id="yt-url-input" placeholder="貼上 YouTube 網址">
+                    </div>
+                    <button id="load-yt-btn" class="btn primary-btn w-100">載入影片</button>
+                </section>
+
+            </aside>
+
+            <!-- 右側展示區 -->
+            <article class="display-panel glass-panel">
+                
+                <!-- 計時器顯示 -->
+                <div class="timer-display-area">
+                    <div id="timer-display" class="timer-text">05:00</div>
+                    <div id="timer-alert" class="alert-msg hidden">時間到！🎉</div>
+                </div>
+
+                <!-- YouTube 影片顯示區 -->
+                <div class="video-container" id="video-container">
+                    <div class="video-placeholder">
+                        <i class="fab fa-youtube placeholder-icon"></i>
+                        <p>請在左側輸入網址載入影片</p>
+                    </div>
+                </div>
+
+                <!-- 4️⃣ 隨機抽號碼機 -->
+                <div class="rng-container section-box">
+                    <h3>🎲 隨機抽號碼機</h3>
+                    <div class="rng-settings">
+                        <div class="input-group">
+                            <label>開始值</label>
+                            <input type="number" id="rng-start" value="1">
+                        </div>
+                        <div class="input-group">
+                            <label>結束值</label>
+                            <input type="number" id="rng-end" value="50">
+                        </div>
+                        <div class="input-group">
+                            <label>抽出個數</label>
+                            <input type="number" id="rng-count" value="3" min="1">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>排除號碼 (用逗號分隔)</label>
+                            <input type="text" id="rng-exclude" placeholder="例: 5, 12, 30">
+                        </div>
+                        <div class="input-group checkbox-group full-width">
+                            <input type="checkbox" id="rng-no-repeat" checked>
+                            <label for="rng-no-repeat">避免重複抽取 (抽過不放回)</label>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button id="rng-draw-btn" class="btn action-btn w-100"><i class="fas fa-random"></i> 開始抽號</button>
+                        <button id="rng-clear-btn" class="btn danger-btn"><i class="fas fa-trash"></i> 清除紀錄</button>
+                    </div>
+                    
+                    <div class="rng-result-area">
+                        <h4>本次抽出：</h4>
+                        <div id="rng-current-result" class="result-cards"></div>
+                    </div>
+                    <div class="rng-history-area">
+                        <h4>已抽出清單：</h4>
+                        <div id="rng-history-list" class="history-tags"></div>
+                    </div>
+                </div>
+
+            </article>
+        </main>
+
+        <!-- 5️⃣ 下方互動區（打賞／按讚） -->
+        <footer class="interaction-bar glass-panel">
+            <div class="interaction-buttons">
+                <button class="interact-btn like-btn" data-type="like">
+                    <span class="icon">❤️</span>
+                    <span class="count" id="count-like">0</span>
+                </button>
+                <button class="interact-btn star-btn" data-type="star">
+                    <span class="icon">⭐</span>
+                    <span class="count" id="count-star">0</span>
+                </button>
+                <button class="interact-btn rocket-btn" data-type="rocket">
+                    <span class="icon">🚀</span>
+                    <span class="count" id="count-rocket">0</span>
+                </button>
+            </div>
+            <p class="interaction-hint">點擊按鈕即時互動！(Data sync powered by Firebase)</p>
+        </footer>
+
+    </div>
+
+    <!-- 動畫效果專用的容器 -->
+    <div id="animation-layer" class="animation-layer"></div>
+
+    <!-- Firebase SDK (Modular) -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
